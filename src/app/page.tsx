@@ -1,29 +1,45 @@
-export default function Home() {
+import { Mail } from 'lucide-react';
+
+export default function HomePage() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <div className="z-10 max-w-5xl w-full items-center justify-between text-sm lg:flex">
-        <p className="fixed left-0 top-0 flex w-full justify-center border-b border-gray-300 bg-gradient-to-b from-zinc-200 pb-6 pt-8 backdrop-blur-2xl lg:static lg:w-auto lg:rounded-xl lg:border lg:bg-gray-200 lg:p-4">
-          欢迎来到 FutureYou
-        </p>
-      </div>
+    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+      <div className="container mx-auto px-4 h-screen flex flex-col items-center justify-center">
+        <div className="text-center max-w-2xl mx-auto">
+          {/* Icon */}
+          <div className="mb-8 animate-fade-in">
+            <Mail className="w-16 h-16 text-blue-500 mx-auto" />
+          </div>
+          
+          {/* Title */}
+          <h1 className="text-4xl md:text-5xl font-bold mb-6 text-gray-800 animate-fade-in">
+            来自未来的信
+          </h1>
+          
+          {/* Subtitle */}
+          <p className="text-xl md:text-2xl text-gray-600 mb-8 animate-fade-in">
+            让十年后的自己，指引当下的选择
+          </p>
+          
+          {/* Description */}
+          <p className="text-gray-600 mb-12 leading-relaxed animate-fade-in">
+            在人生的关键时刻，你是否希望能够预见未来？
+            通过这封来自未来的信件，聆听不同选择后的自己会告诉你什么。
+          </p>
+          
+          {/* CTA Button */}
+          <a 
+            href="/write"
+            className="inline-block bg-blue-500 hover:bg-blue-600 text-white font-semibold py-3 px-8 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 animate-fade-in"
+          >
+            开始体验
+          </a>
 
-      <div className="relative flex place-items-center">
-        <h1 className="text-4xl font-bold">来自未来的信</h1>
-      </div>
-
-      <div className="mb-32 grid text-center lg:max-w-5xl lg:w-full lg:mb-0 lg:grid-cols-3 lg:text-left">
-        <div className="group rounded-lg border border-transparent px-5 py-4">
-          <h2 className="mb-3 text-2xl font-semibold">
-            开启对话{' '}
-            <span className="inline-block transition-transform group-hover:translate-x-1 motion-reduce:transform-none">
-              →
-            </span>
-          </h2>
-          <p className="m-0 max-w-[30ch] text-sm opacity-50">
-          对话未来平行宇宙中不同的自己，审视当下的选择
+          {/* Quote */}
+          <p className="mt-12 text-gray-500 italic animate-fade-in">
+            "每一个选择都通向一个独特的未来"
           </p>
         </div>
       </div>
     </main>
-  )
+  );
 }
