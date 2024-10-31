@@ -1,5 +1,4 @@
 // components/InfoDialog.tsx
-
 import React, { useState } from 'react';
 import { Loader2, X } from 'lucide-react';
 
@@ -40,17 +39,17 @@ export function InfoDialog({
 
         {/* 提示信息 */}
         <div className="bg-blue-50 border border-blue-100 rounded-md p-4">
-          <p className="text-sm text-blue-800">
+          <p className="text-sm text-blue-800 font-light">
             提供的信息越详细，推演的未来越准确。
           </p>
         </div>
 
         {/* 问题输入区 */}
         <div>
-          <p className="text-gray-700 mb-2">{question}</p>
+          <p className="text-gray-700 mb-2 font-light">{question}</p>
           <textarea
             className="w-full min-h-[120px] p-3 border rounded-md 
-                     text-gray-700 placeholder-gray-400
+                     text-gray-700 placeholder-gray-400 font-light
                      focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             placeholder="写下你的回答..."
             value={answer}
@@ -63,7 +62,7 @@ export function InfoDialog({
         <div className="flex justify-end space-x-3 pt-2">
           <button
             onClick={onSkip}
-            className="px-4 py-2 text-gray-600 hover:text-gray-800
+            className="px-4 py-2 text-gray-600 hover:text-gray-800 font-light
                      disabled:opacity-50 disabled:cursor-not-allowed"
             disabled={isLoading}
           >
@@ -77,7 +76,7 @@ export function InfoDialog({
               }
             }}
             className="flex items-center justify-center px-4 py-2 
-                     bg-blue-600 text-white rounded-md
+                     bg-blue-600 text-white rounded-md font-light
                      hover:bg-blue-700 
                      disabled:opacity-50 disabled:cursor-not-allowed
                      min-w-[100px]"

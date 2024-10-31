@@ -85,75 +85,54 @@ const PathIllustration = () => (
 
 export default function HomePage() {
   return (
-    <>
-      <style jsx global>{`
-        @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500&family=Noto+Sans+SC:wght@300;400;500&display=swap');
-        
-        .font-prose {
-          font-family: 'Noto Serif SC', serif;
-          font-weight: 300;
-          letter-spacing: 0.02em;
-        }
-
-        .font-sans {
-          font-family: 'Noto Sans SC', system-ui, -apple-system, sans-serif;
-          letter-spacing: 0.01em;
-        }
-
-        .font-light {
-          font-weight: 300;
-        }
-      `}</style>
-
-      <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden relative font-sans">
-        <BackgroundDecoration />
-        
-        <div className="container mx-auto px-4 pt-24 md:pt-32 relative">
-          <motion.div 
-            className="max-w-2xl mx-auto text-center space-y-24"
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6 }}
-          >
-            {/* 弱化的标题 */}
-            <motion.div className="text-center">
-              <p className="text-gray-500 text-lg tracking-wide font-light">
-                未选择的路
-                <span className="mx-2 opacity-50">·</span>
-                对话十年后的自己
-              </p>
-            </motion.div>
-
-            {/* 主要内容 */}
-            <motion.div className="space-y-16">
-              <div className="space-y-16">
-                <p className="text-2xl text-gray-600 font-prose italic leading-relaxed">
-                  "黄色的树林里分出两条路，
-                  <br />
-                  可惜我不能同时去涉足..."
-                </p>
-
-                <PathIllustration />
-
-                <p className="text-2xl text-gray-800 font-light leading-relaxed">
-                  穿越时空，对话十年后的自己，
-                  <br />
-                  看不同选择会将你带向何方
-                </p>
-              </div>
-
-              <a 
-                href="/write"
-                className="inline-flex items-center px-8 py-3 text-lg text-white bg-blue-600 
-                          rounded-lg shadow-lg hover:bg-blue-700 transform hover:-translate-y-0.5 
-                          transition-all duration-150 font-normal tracking-wide"
-              >
-                开启对话
-              </a>
-            </motion.div>
+    <main className="min-h-screen bg-gradient-to-b from-blue-50 to-white overflow-hidden relative">
+      <BackgroundDecoration />
+      
+      <div className="container mx-auto px-4 pt-24 md:pt-32 relative">
+        <motion.div 
+          className="max-w-2xl mx-auto text-center space-y-24"
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6 }}
+        >
+          {/* 标题 */}
+          <motion.div className="text-center">
+            <p className="text-gray-500 text-lg tracking-wide font-light">
+              未选择的路
+              <span className="mx-2 opacity-50">·</span>
+              对话十年后的自己
+            </p>
           </motion.div>
-        </div>
-      </main>
-    </>
+
+          {/* 主要内容 */}
+          <motion.div className="space-y-16">
+            <div className="space-y-16">
+              <p className="text-2xl text-gray-600 font-light leading-relaxed">
+                "黄色的树林里分出两条路，
+                <br />
+                可惜我不能同时去涉足..."
+              </p>
+
+              <PathIllustration />
+
+              <p className="text-2xl text-gray-800 font-light leading-relaxed">
+                穿越时空，对话十年后的自己，
+                <br />
+                看不同选择会将你带向何方
+              </p>
+            </div>
+
+            <a 
+              href="/write"
+              className="inline-flex items-center px-8 py-3 text-lg text-white bg-blue-600 
+                        rounded-lg shadow-lg hover:bg-blue-700 transform hover:-translate-y-0.5 
+                        transition-all duration-150 font-light tracking-wide"
+            >
+              开启对话
+            </a>
+          </motion.div>
+        </motion.div>
+      </div>
+    </main>
   );
 }

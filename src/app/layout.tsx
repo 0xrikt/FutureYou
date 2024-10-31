@@ -1,12 +1,18 @@
+// src/app/layout.tsx
 import type { Metadata } from 'next'
-import { Inter } from 'next/font/google'
+import { Noto_Sans_SC } from 'next/font/google'
+import { Footer } from '@/components/ui/Footer'
 import './globals.css'
 
-const inter = Inter({ subsets: ['latin'] })
+const notoSansSC = Noto_Sans_SC({ 
+  subsets: ['latin'],
+  weight: ['300', '400', '500'],
+  variable: '--font-primary',
+});
 
 export const metadata: Metadata = {
-  title: '来自未来的信',
-  description: '让十年后的自己，指引当下的选择',
+  title: '未选择的路：AI对话十年后的自己',
+  description: '让AI推演十年后的自己，指引当下的选择',
 }
 
 export default function RootLayout({
@@ -16,7 +22,7 @@ export default function RootLayout({
 }) {
   return (
     <html lang="zh">
-      <body className={inter.className}>
+      <body className={notoSansSC.variable}>
         {children}
       </body>
     </html>
