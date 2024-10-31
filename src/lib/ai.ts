@@ -11,39 +11,28 @@ interface Message {
 }
 
 export class AIService {
-  private static async makeRequest(messages: Message[]) {
-    try {
-      if (!process.env.NEXT_PUBLIC_ZHIPU_API_KEY) {
-        throw new Error('智谱API密钥未配置');
+    private static async makeRequest(messages: Message[]) {
+        try {
+          // 改为调用自己的API endpoint
+          const response = await fetch('/api/ai', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ messages })
+          });
+      
+          if (!response.ok) {
+            throw new Error(`API request failed with status ${response.status}`);
+          }
+      
+          const data = await response.json();
+          return data.content;
+        } catch (error) {
+          console.error('AI API Error:', error);
+          throw new Error('与AI服务通信时出现错误');
+        }
       }
-
-      const response = await fetch(API_BASE_URL, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-          'Authorization': ZHIPU_API_KEY
-        },
-        body: JSON.stringify({
-          model: 'glm-4-flash',
-          messages,
-          temperature: 0.7,
-          top_p: 0.95,
-          max_tokens: 4096,
-          stream: false
-        })
-      });
-
-      if (!response.ok) {
-        throw new Error(`API request failed with status ${response.status}`);
-      }
-
-      const data: ZhipuAIResponse = await response.json();
-      return data.choices[0].message.content;
-    } catch (error) {
-      console.error('AI API Error:', error);
-      throw new Error('与AI服务通信时出现错误');
-    }
-  }
 
   private static cleanJsonResponse(response: string): string {
     // 1. 移除可能的代码块标记
