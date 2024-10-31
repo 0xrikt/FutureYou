@@ -2,13 +2,14 @@
 import type { Metadata } from 'next'
 import { Noto_Sans_SC } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
-import { Footer } from '@/components/ui/Footer'
 import './globals.css'
 
 const notoSansSC = Noto_Sans_SC({ 
   subsets: ['latin'],
   weight: ['300', '400', '500'],
   variable: '--font-primary',
+  display: 'swap',  // 添加 display swap
+  preload: true,    // 确保字体预加载
 });
 
 export const metadata: Metadata = {
@@ -22,8 +23,11 @@ export default function RootLayout({
   children: React.ReactNode
 }) {
   return (
-    <html lang="zh">
-      <body className={notoSansSC.variable}>
+    <html lang="zh" className={`${notoSansSC.variable}`}>
+      <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </head>
+      <body className={`min-h-screen ${notoSansSC.className}`}>
         {children}
         <Analytics />
       </body>
