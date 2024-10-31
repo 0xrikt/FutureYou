@@ -1,6 +1,7 @@
 // src/app/layout.tsx
 import type { Metadata } from 'next'
 import { Noto_Sans_SC } from 'next/font/google'
+import { Analytics } from '@vercel/analytics/react'
 import { Footer } from '@/components/ui/Footer'
 import './globals.css'
 
@@ -24,6 +25,7 @@ export default function RootLayout({
     <html lang="zh">
       <body className={notoSansSC.variable}>
         {children}
+        <Analytics />
       </body>
     </html>
   )

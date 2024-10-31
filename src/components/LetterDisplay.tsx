@@ -1,4 +1,6 @@
 // components/LetterDisplay.tsx
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Mail, ChevronLeft } from 'lucide-react';
@@ -14,16 +16,15 @@ const LOADING_MESSAGES = [
   "等待的时间可能有点久 🥚",
   "已经联系到十年后的你 🎙️",
   "就快好了 🚄",
-  "贴上邮票 ✉️"
+  "贴上邮票 ✉️",
+  "想象更多的可能……☁️"
 ];
 
 const NavigationBar = ({ 
   onBack, 
-  showHomeButton = true,
   backText = "返回首页"
 }: { 
   onBack: () => void;
-  showHomeButton?: boolean;
   backText?: string;
 }) => (
   <motion.div 
@@ -45,14 +46,12 @@ const NavigationBar = ({
 
 const LoadingState = () => {
   const [currentMessage, setCurrentMessage] = useState(LOADING_MESSAGES[0]);
-  const [messageIndex, setMessageIndex] = useState(0);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setMessageIndex(prev => {
-        const nextIndex = (prev + 1) % LOADING_MESSAGES.length;
-        setCurrentMessage(LOADING_MESSAGES[nextIndex]);
-        return nextIndex;
+      setCurrentMessage(prev => {
+        const currentIndex = LOADING_MESSAGES.indexOf(prev);
+        return LOADING_MESSAGES[(currentIndex + 1) % LOADING_MESSAGES.length];
       });
     }, 4000);
 
@@ -87,36 +86,36 @@ const LoadingState = () => {
 };
 
 const LetterEnvelope = ({ 
-    isOpen, 
-    onClick, 
-    title, 
-    disabled 
-  }: { 
-    isOpen: boolean; 
-    onClick: () => void; 
-    title: string;
-    disabled: boolean;
-  }) => (
-    <motion.div
-      className={`relative cursor-pointer ${disabled ? 'opacity-50' : ''}`}
-      whileHover={!disabled ? { scale: 1.05 } : {}}
-      onClick={!disabled ? onClick : undefined}
-    >
-      <div className="bg-white rounded-lg shadow-lg p-6 text-center">
-        <Mail 
-          className={`h-12 w-12 mx-auto mb-4 ${isOpen ? 'text-blue-300' : 'text-blue-600'}`} 
-        />
-        <h3 className="text-sm text-gray-900 mb-2 font-light">
-          {title}
-        </h3>
-        <p className="text-xs text-gray-500 font-light">
-          {isOpen ? '已打开' : '点击打开'}
-        </p>
-      </div>
-    </motion.div>
-  );
-  
-  const LetterContent = ({ 
+  isOpen, 
+  onClick, 
+  title, 
+  disabled 
+}: { 
+  isOpen: boolean; 
+  onClick: () => void; 
+  title: string;
+  disabled: boolean;
+}) => (
+  <motion.div
+    className={`relative cursor-pointer ${disabled ? 'opacity-50' : ''}`}
+    whileHover={!disabled ? { scale: 1.05 } : {}}
+    onClick={!disabled ? onClick : undefined}
+  >
+    <div className="bg-white rounded-lg shadow-lg p-6 text-center">
+      <Mail 
+        className={`h-12 w-12 mx-auto mb-4 ${isOpen ? 'text-blue-300' : 'text-blue-600'}`} 
+      />
+      <h3 className="text-sm text-gray-900 mb-2 font-light">
+        {title}
+      </h3>
+      <p className="text-xs text-gray-500 font-light">
+        {isOpen ? '已打开' : '点击打开'}
+      </p>
+    </div>
+  </motion.div>
+);
+
+const LetterContent = ({ 
     content,
     onClose,
     isFirstLetter,

@@ -13,8 +13,8 @@ interface InfoDialogProps {
 
 export function InfoDialog({ 
   isOpen, 
-  question, 
-  reason, 
+  question,
+  reason,
   onSubmit, 
   onSkip, 
   isLoading 

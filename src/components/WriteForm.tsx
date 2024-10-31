@@ -9,9 +9,8 @@ import { AIService } from '@/lib/ai';
 import { InfoDialog } from './InfoDialog';
 
 const defaultYear = '1995';
-
-// 生成年份选项：1940-2020
-const yearOptions = Array.from({ length: 81 }, (_, i) => (2020 - i).toString());
+const yearOptions = Array.from({ length: 81 }, (_, i) => (1940 + i).toString());
+const MAX_DIALOG_ROUNDS = 5;  // 最大对话轮数
 
 export default function WriteForm() {
   const router = useRouter();
@@ -21,6 +20,7 @@ export default function WriteForm() {
   const [currentQuestion, setCurrentQuestion] = useState('');
   const [currentReason, setCurrentReason] = useState('');
   const [additionalInfo, setAdditionalInfo] = useState('');
+  const [dialogRounds, setDialogRounds] = useState(0);
   const [formData, setFormData] = useState({
     name: '',
     gender: '',
@@ -59,7 +59,12 @@ export default function WriteForm() {
     
     AIService.generateLetters(formData, additionalInfo)
       .then(letters => {
-        localStorage.setItem('letters', JSON.stringify(letters));
+        // 确保信件和选项一一对应
+        const lettersData = {
+          letterA: letters.letterA,  // letterA对应选项A
+          letterB: letters.letterB   // letterB对应选项B
+        };
+        localStorage.setItem('letters', JSON.stringify(lettersData));
       })
       .catch(error => {
         console.error('Error generating letters:', error);
@@ -67,32 +72,19 @@ export default function WriteForm() {
       });
   };
 
-  const handleNext = async () => {
-    if (step === 1 && isStep1Valid()) {
-      setStep(2);
-    } else if (step === 2 && isStep2Valid()) {
-      setIsLoading(true);
-      try {
-        const result = await AIService.checkBackgroundInfo(formData.background);
-        
-        if (!result.sufficient && result.questions?.length) {
-          setCurrentQuestion(result.questions[0]);
-          setCurrentReason(result.reason);
-          setIsDialogOpen(true);
-          setIsLoading(false);
-        } else {
-          generateLettersAndNavigate();
-        }
-      } catch (error) {
-        console.error('Error:', error);
-        alert('发生错误，请稍后重试');
-        setIsLoading(false);
-      }
-    }
-  };
-
   const handleDialogSubmit = async (answer: string) => {
     setIsLoading(true);
+    
+    // 检查是否达到最大对话轮数
+    if (dialogRounds >= MAX_DIALOG_ROUNDS - 1) {
+      // 如果已经达到最大轮数，直接生成信件
+      const newInfo = `${additionalInfo}\n问：${currentQuestion}\n答：${answer}`;
+      setAdditionalInfo(newInfo);
+      setIsDialogOpen(false);
+      generateLettersAndNavigate();
+      return;
+    }
+
     try {
       const newInfo = `${additionalInfo}\n问：${currentQuestion}\n答：${answer}`;
       setAdditionalInfo(newInfo);
@@ -103,7 +95,9 @@ export default function WriteForm() {
         answer
       );
 
-      if (!result.sufficient && result.question) {
+      setDialogRounds(prev => prev + 1);
+
+      if (!result.sufficient && result.question && dialogRounds < MAX_DIALOG_ROUNDS - 1) {
         setCurrentQuestion(result.question);
         setIsLoading(false);
       } else {
@@ -120,6 +114,31 @@ export default function WriteForm() {
   const handleDialogSkip = () => {
     setIsDialogOpen(false);
     generateLettersAndNavigate();
+  };
+
+  const handleNext = async () => {
+    if (step === 1 && isStep1Valid()) {
+      setStep(2);
+    } else if (step === 2 && isStep2Valid()) {
+      setIsLoading(true);
+      try {
+        const result = await AIService.checkBackgroundInfo(formData.background);
+        
+        if (!result.sufficient && result.questions?.length) {
+          setDialogRounds(0);  // 重置对话轮数
+          setCurrentQuestion(result.questions[0]);
+          setCurrentReason(result.reason);
+          setIsDialogOpen(true);
+          setIsLoading(false);
+        } else {
+          generateLettersAndNavigate();
+        }
+      } catch (error) {
+        console.error('Error:', error);
+        alert('发生错误，请稍后重试');
+        setIsLoading(false);
+      }
+    }
   };
 
   return (
@@ -259,7 +278,7 @@ export default function WriteForm() {
                     <li>• 目前的生活状态和心情</li>
                     <li>• 为什么会面临这个选择</li>
                     <li>• 每个选项的好处和坏处</li>
-                    <li>🐱 想到什么说什么就好啦</li>
+                    <li>🐱 想到什么说什么就好</li>
                   </ul>
                 </div>
               </div>
