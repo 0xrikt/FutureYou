@@ -1,16 +1,7 @@
-// src/app/layout.tsx
 import type { Metadata } from 'next'
-import { Noto_Sans_SC } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/react'
+import { notoSansSC } from './fonts'
 import './globals.css'
-
-const notoSansSC = Noto_Sans_SC({ 
-  subsets: ['latin'],
-  weight: ['300', '400', '500'],
-  variable: '--font-primary',
-  display: 'swap',  // 添加 display swap
-  preload: true,    // 确保字体预加载
-});
 
 export const metadata: Metadata = {
   title: '未选择的路：AI对话十年后的自己',

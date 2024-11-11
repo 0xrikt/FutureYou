@@ -1,18 +1,13 @@
-// tailwind.config.ts
 import type { Config } from "tailwindcss";
 
 const config: Config = {
   content: [
-    "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
+    "./src/**/*.{js,ts,jsx,tsx,mdx}",  // 匹配 src 目录下所有文件
   ],
   theme: {
-    // 基础配置，会覆盖 Tailwind 默认值
     fontFamily: {
       sans: ['var(--font-primary)', 'system-ui', '-apple-system', 'sans-serif'],
     },
-    // 扩展配置，添加到默认值中
     extend: {
       colors: {
         background: "var(--background)",
