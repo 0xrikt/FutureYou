@@ -1,8 +1,8 @@
 // src/app/letters/page.tsx
 'use client';
 
-import LetterDisplay from '@/components/LetterDisplay';
-import { Footer } from '@/components/ui/Footer';
+import LetterDisplay from '../../components/LetterDisplay';
+import { Footer } from '../../components/ui/Footer';
 
 export default function LettersPage() {
   return (

@@ -1,6 +1,6 @@
 // src/app/write/page.tsx
-import WriteForm from '@/components/WriteForm';
-import { Footer } from '@/components/ui/Footer';
+import WriteForm from '../../components/WriteForm';
+import { Footer } from '../../components/ui/Footer';
 
 export default function WritePage() {
   return (
