@@ -6,7 +6,6 @@
     "dev": "next dev",
     "build": "NODE_ENV=production next build",
     "build:css": "postcss src/app/globals.css -o src/app/dist/globals.css",
-    "prebuild": "npm run build:css",
     "start": "next start",
     "lint": "next lint"
   },
