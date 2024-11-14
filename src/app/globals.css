@@ -2,17 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+/* 移除 CSS 变量的定义，改用 Tailwind 的颜色系统 */
 
 @keyframes fadeIn {
   from {
@@ -39,7 +29,7 @@
 
 @layer base {
   body {
-    @apply text-foreground bg-background;
+    @apply text-gray-900 bg-white;  /* 使用 Tailwind 的具体颜色类替代 CSS 变量 */
     letter-spacing: 0.01em;
     font-weight: 300;
   }

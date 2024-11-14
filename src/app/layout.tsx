@@ -19,8 +19,10 @@ export default function RootLayout({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
       </head>
       <body className={`min-h-screen ${notoSansSC.className}`}>
-        {children}
-        <Analytics />
+        <div className="min-h-screen bg-gradient-to-b from-blue-50 to-white">
+          {children}
+          <Analytics />
+        </div>
       </body>
     </html>
   )
