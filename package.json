@@ -4,15 +4,14 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "NODE_ENV=production next build",
-    "build:css": "postcss src/app/globals.css -o src/app/dist/globals.css",
+    "build": "next build",
     "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.0",
     "@radix-ui/react-label": "^2.1.0",
-    "@radix-ui/react-popover": "^1.1.2", 
+    "@radix-ui/react-popover": "^1.1.2",
     "@radix-ui/react-radio-group": "^1.2.1",
     "@radix-ui/react-slot": "^1.1.0",
     "@vercel/analytics": "^1.3.2",
@@ -20,8 +19,7 @@
     "framer-motion": "^10.18.0",
     "lucide-react": "^0.454.0",
     "next": "14.1.0",
-    "postcss-import": "^15.1.0",
-    "react": "^18.2.0", 
+    "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "zustand": "^5.0.0"
   },
@@ -35,7 +33,6 @@
     "eslint": "^8",
     "eslint-config-next": "15.0.1",
     "postcss": "^8.4.31",
-    "postcss-nesting": "^12.0.1",
     "tailwindcss": "^3.4.1",
     "typescript": "^5.6.3"
   },
