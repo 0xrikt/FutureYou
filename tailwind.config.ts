@@ -4,7 +4,10 @@ const config: Config = {
   content: [
     "./src/**/*.{js,ts,jsx,tsx,mdx}",
     "./app/**/*.{js,ts,jsx,tsx,mdx}",
-  ],
+    // 添加以下路径
+    "./pages/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}"
+],
   theme: {
     fontFamily: {
       sans: ['var(--font-primary)', 'system-ui', '-apple-system', 'sans-serif'],
