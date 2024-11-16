@@ -2,14 +2,20 @@
 @tailwind components;
 @tailwind utilities;
 
-/* 移除 CSS 变量的定义，改用 Tailwind 的颜色系统 */
+@layer base {
+  body {
+    @apply text-gray-900 bg-white;
+    letter-spacing: 0.01em;
+    font-weight: 300;
+  }
+}
 
 @keyframes fadeIn {
-  from {
+  0% {
     opacity: 0;
     transform: translateY(10px);
   }
-  to {
+  100% {
     opacity: 1;
     transform: translateY(0);
   }
@@ -26,11 +32,3 @@
 .animate-fade-in:nth-child(4) { animation-delay: 0.4s; }
 .animate-fade-in:nth-child(5) { animation-delay: 0.5s; }
 .animate-fade-in:nth-child(6) { animation-delay: 0.6s; }
-
-@layer base {
-  body {
-    @apply text-gray-900 bg-white;  /* 使用 Tailwind 的具体颜色类替代 CSS 变量 */
-    letter-spacing: 0.01em;
-    font-weight: 300;
-  }
-}
