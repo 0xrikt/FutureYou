@@ -1,11 +1,14 @@
 import type { Config } from "tailwindcss";
 
 const config: Config = {
+  darkMode: ["class"],
   content: [
-    "./src/app/**/*.{js,ts,jsx,tsx,mdx}",  // 确保包含所有可能的源文件
-    "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
-    "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
+    './src/pages/**/*.{ts,tsx}',
+    './src/components/**/*.{ts,tsx}',
+    './src/app/**/*.{ts,tsx}',
+    './src/**/*.{ts,tsx}',
   ],
+  prefix: "",
   theme: {
     fontFamily: {
       sans: ['var(--font-primary)', 'system-ui', '-apple-system', 'sans-serif'],
@@ -15,33 +18,12 @@ const config: Config = {
         background: "var(--background)",
         foreground: "var(--foreground)",
       },
-      typography: {
-        DEFAULT: {
-          css: {
-            maxWidth: 'none',
-            color: 'rgb(55 65 81)',
-            '--tw-prose-headings': 'rgb(31 41 55)',
-            '--tw-prose-links': 'rgb(59 130 246)',
-            lineHeight: '1.75',
-            fontFamily: 'var(--font-primary)',
-            p: {
-              marginTop: '1.25em',
-              marginBottom: '1.25em',
-              letterSpacing: '0.01em',
-              fontWeight: '300',
-              fontFamily: 'var(--font-primary)',
-            },
-            'h1, h2, h3, h4, h5, h6': {
-              fontFamily: 'var(--font-primary)',
-            },
-          },
-        },
-      },
     },
   },
-  plugins: [
-    require('@tailwindcss/typography'),
-  ],
+  plugins: [require('@tailwindcss/typography')],
+  future: {
+    hoverOnlyWhenSupported: true,
+  },
 };
 
 export default config;
