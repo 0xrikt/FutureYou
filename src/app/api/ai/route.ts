@@ -1,7 +1,9 @@
 // app/api/ai/route.ts
 import { NextResponse } from 'next/server';
 
-// 添加消息类型定义
+export const dynamic = 'force-dynamic';
+export const fetchCache = 'force-no-store';
+
 interface Message {
   role: string;
   content: string;
@@ -18,6 +20,10 @@ export async function POST(req: Request) {
 
     const { messages }: { messages: Message[] } = await req.json();
 
+    // 设置 55 秒超时
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 55000);
+
     const response = await fetch(API_BASE_URL, {
       method: 'POST',
       headers: {
@@ -29,10 +35,13 @@ export async function POST(req: Request) {
         messages,
         temperature: 0.7,
         top_p: 0.95,
-        max_tokens: 4096,
+        max_tokens: 3000,  // 减少 token 数以加快响应
         stream: false
-      })
+      }),
+      signal: controller.signal
     });
+
+    clearTimeout(timeoutId);
 
     if (!response.ok) {
       throw new Error(`API request failed with status ${response.status}`);
@@ -45,6 +54,14 @@ export async function POST(req: Request) {
 
   } catch (error) {
     console.error('API Error:', error);
+    
+    if (error instanceof Error && error.name === 'AbortError') {
+      return NextResponse.json(
+        { error: 'Request timeout' },
+        { status: 504 }
+      );
+    }
+
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
