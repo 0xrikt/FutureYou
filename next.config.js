@@ -24,11 +24,18 @@ const nextConfig = {
   swcMinify: true,
   poweredByHeader: false,
   
-  // 确保正确处理 CSS modules
-  compiler: {
-    // 移除 console.log 在生产环境
-    removeConsole: process.env.NODE_ENV === 'production',
-  }
+  // 配置 API 路由超时
+  serverRuntimeConfig: {
+    // API 路由超时设置为 60 秒
+    apiTimeout: 60000,
+  },
+
+  // Edge Runtime 配置
+  experimental: {
+    serverActions: {
+      bodySizeLimit: '2mb',
+    },
+  },
 }
 
 module.exports = nextConfig;
