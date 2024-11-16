@@ -35,7 +35,7 @@ export async function POST(req: Request) {
         messages,
         temperature: 0.7,
         top_p: 0.95,
-        max_tokens: 3000,  // 减少 token 数以加快响应
+        max_tokens: 5000,  // 减少 token 数以加快响应
         stream: false
       }),
       signal: controller.signal
